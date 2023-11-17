@@ -1,12 +1,11 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,6 +18,17 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+
+  //MOTOR DECLARATIONS
+  //TODO need to update for specific motor controllers and CAN numbers
+  private final TalonSRX m_rearLeftDrive = new TalonSRX(0);
+  private final TalonSRX m_rearRightDrive = new TalonSRX(1);
+  private final TalonSRX m_frontLeftDrive = new TalonSRX(2);
+  private final TalonSRX m_frontRightDrive = new TalonSRX(3);
+  private final Joystick m_stick = new Joystick(0);
+  private final Timer m_timer = new Timer();
+
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -39,7 +49,8 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+  }
 
   /**
    * This autonomous (along with the chooser code above) shows how to select between different
@@ -78,7 +89,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    
+    
+  }
 
   /** This function is called once when the robot is disabled. */
   @Override
