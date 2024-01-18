@@ -3,11 +3,9 @@ package frc.robot.robotCode.RobotKeybindsAndFunctions;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.robotCode.Drivetrain;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilib.XboxController;
 import edu.wpi.first.wpilibj.Timer;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -18,17 +16,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
+  private String m_autonomousCommand;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-
-  //MOTOR DECLARATIONS
-  //TODO need to update for specific motor controllers and CAN numbers
-  private final TalonSRX m_rearLeftDrive = new TalonSRX(2);
-  private final TalonSRX m_rearRightDrive = new TalonSRX(3);
-  private final TalonSRX m_frontLeftDrive = new TalonSRX(4);
-  private final TalonSRX m_frontRightDrive = new TalonSRX(5);
-  private final Joystick m_stick = new Joystick(0);
-  private final Timer m_timer = new Timer();
 
 
 
@@ -38,11 +27,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    Drivetrain drivetrain = new Drivetrain();
+    RobotContainer m_robotContainer = new RobotContainer();
   }
 
   /**
@@ -54,7 +44,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    drivetrain.drive(); //TODO add joystick inputs
+    CommandScheduler.getInstance().run();
   }
 
   /**
@@ -69,15 +59,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    m_autonomousCommand = m_chooser.getSelected();
+    // m_autonomousCommand = SmartDashboard.getString("Auto Selector", kDefaultAuto);
+    System.out.println("Auto selected: " + m_autonomousCommand);
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
+    switch (m_autonomousCommand) {
       case kCustomAuto:
         // Put custom auto code here
         break;
@@ -90,7 +80,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    //add something that ends all running auto TODO
+  
+  }
 
   /** This function is called periodically during operator control. */
   @Override
