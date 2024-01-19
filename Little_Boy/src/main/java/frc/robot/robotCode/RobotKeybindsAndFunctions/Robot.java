@@ -19,6 +19,8 @@ public class Robot extends TimedRobot {
   private String m_autonomousCommand;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  private RobotContainer m_robotContainer;
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -31,7 +33,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    RobotContainer m_robotContainer = new RobotContainer();
+    m_robotContainer = new RobotContainer();
   }
 
   /**
