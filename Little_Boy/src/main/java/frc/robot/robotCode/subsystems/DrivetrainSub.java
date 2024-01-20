@@ -1,6 +1,7 @@
 package frc.robot.robotCode.subsystems;
 
 import frc.robot.robotCode.ConstantsAndConfigs.Constants;
+import frc.robot.robotCode.commands.TeleopDrive;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,6 +16,8 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
 public class DrivetrainSub extends SubsystemBase {
+  Joystick driver;
+/* 
   WPI_TalonSRX m_rearLeftDrive;
   WPI_TalonSRX m_frontLeftDrive;
   MotorControllerGroup m_left = new MotorControllerGroup(m_rearLeftDrive, m_frontLeftDrive);
@@ -23,19 +26,28 @@ public class DrivetrainSub extends SubsystemBase {
   WPI_TalonSRX m_frontRightDrive;
   MotorControllerGroup m_right = new MotorControllerGroup(m_rearRightDrive, m_frontRightDrive);
 
-  DifferentialDrive drivetrain = new DifferentialDrive(m_left, m_right);
+  
+*/
+  DifferentialDrive drivetrain; 
 
-  public DrivetrainSub() {
-    m_rearLeftDrive = new WPI_TalonSRX(Constants.DrivetrainConstants.frontLeftMotorPort);
-    m_rearRightDrive = new WPI_TalonSRX(Constants.DrivetrainConstants.rearLeftMotorPort);
-    m_frontLeftDrive = new WPI_TalonSRX(Constants.DrivetrainConstants.frontRightMotorPort);
-    m_frontRightDrive = new WPI_TalonSRX(Constants.DrivetrainConstants.rearRightMotorPort);
+  public DrivetrainSub(Joystick driver) {
+    this.driver = driver;
 
-    m_right.setInverted(true);
+    WPI_TalonSRX m_rearLeftDrive = new WPI_TalonSRX(Constants.DrivetrainConstants.rearLeftMotorPort);
+    WPI_TalonSRX m_frontLeftDrive = new WPI_TalonSRX(Constants.DrivetrainConstants.frontLeftMotorPort);
+    WPI_TalonSRX m_rearRightDrive = new WPI_TalonSRX(Constants.DrivetrainConstants.rearRightMotorPort);
+    WPI_TalonSRX m_frontRightDrive = new WPI_TalonSRX(Constants.DrivetrainConstants.frontRightMotorPort);
+    
+    MotorControllerGroup m_left = new MotorControllerGroup(m_rearLeftDrive, m_frontLeftDrive);
+    MotorControllerGroup m_right = new MotorControllerGroup(m_rearRightDrive, m_frontRightDrive);
+    
+    drivetrain = new DifferentialDrive(m_left, m_right);
+
+    setDefaultCommand(new TeleopDrive(this));
   }
 
-  public void drive(Joystick driver) {
-    drivetrain.arcadeDrive(driver.getY(), driver.getX());
+  public void drive() {
+    drivetrain.arcadeDrive(driver.getY(), driver.getZ());
   }
 
   @Override
