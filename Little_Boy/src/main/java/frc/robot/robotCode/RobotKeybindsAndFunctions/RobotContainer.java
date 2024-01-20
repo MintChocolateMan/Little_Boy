@@ -10,10 +10,12 @@ public class RobotContainer {
     public final static Joystick driver = new Joystick(0);
 
     //Subsystems
-    DrivetrainSub drivetrain = new DrivetrainSub();
+    DrivetrainSub drivetrain;
 
     public RobotContainer() {
-        drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, driver));
+        System.out.println("robotcontainer constructor started");
+        drivetrain = new DrivetrainSub(driver);
+        //drivetrain.setDefaultCommand(new TeleopDrive(drivetrain));
         configureButtonBindings();
     }
 

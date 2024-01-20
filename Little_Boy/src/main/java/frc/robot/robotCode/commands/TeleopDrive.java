@@ -7,11 +7,9 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class TeleopDrive extends CommandBase {
     private DrivetrainSub drivetrain;
-    private Joystick driver;
     
-    public TeleopDrive(DrivetrainSub drivetrain, Joystick driver) {
+    public TeleopDrive(DrivetrainSub drivetrain) {
         this.drivetrain = drivetrain;
-        this.driver = driver;
         addRequirements(drivetrain);
 
 
@@ -19,6 +17,6 @@ public class TeleopDrive extends CommandBase {
 
     @Override
     public void execute() {
-        drivetrain.drive(driver);
+        drivetrain.drive();
     }
 }

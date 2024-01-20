@@ -40,7 +40,7 @@ public class DrivetrainSub extends SubsystemBase {
     
     MotorControllerGroup m_left = new MotorControllerGroup(m_rearLeftDrive, m_frontLeftDrive);
     MotorControllerGroup m_right = new MotorControllerGroup(m_rearRightDrive, m_frontRightDrive);
-    
+    m_right.setInverted(true);
     drivetrain = new DifferentialDrive(m_left, m_right);
 
     setDefaultCommand(new TeleopDrive(this));
