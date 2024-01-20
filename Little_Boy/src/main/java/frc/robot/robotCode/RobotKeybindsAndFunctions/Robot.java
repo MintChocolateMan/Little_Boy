@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.cameraserver.CameraServer;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
@@ -27,12 +28,15 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
 
     m_robotContainer = new RobotContainer();
+
+    CameraServer.startAutomaticCapture();
   }
 
   //Runs constantly when robot is on
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+    
   }
 
   /**
